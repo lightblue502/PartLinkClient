@@ -30,72 +30,73 @@ public class NumericActivity extends GameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_numeric);
         super.initialServiceBinding();
-//        btns = generateButton();
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            WebView.setWebContentsDebuggingEnabled(true);
-        }
-        wv = (WebView)findViewById(R.id.webView);
+        btns = generateButton();
+
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+//            WebView.setWebContentsDebuggingEnabled(true);
+//        }
+//        wv = (WebView)findViewById(R.id.webView);
 //        wv.loadData("<h3> Hello world</h3>", "text/html","UTF-8");
-        wv.loadUrl("file:///android_asset/numeric.html");
-        wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
-        wv.addJavascriptInterface(new JavaScriptInterface(this), "Android");
+//        wv.loadUrl("file:///android_asset/numeric.html");
+//        wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
+//        wv.addJavascriptInterface(new JavaScriptInterface(this), "Android");
         intent = getIntent();
-//        event = intent.getStringExtra("numeric_game");
+        event = intent.getStringExtra("numeric_game");
         onGameEvent(event, null);
     }
 
-//    private List<Button> generateButton(){
-//        List<Button> btns = new ArrayList<Button>();
-//        btns.add((Button)findViewById(R.id.button));
-//        btns.add((Button)findViewById(R.id.button1));
-//        btns.add((Button) findViewById(R.id.button2));
-//        btns.add((Button) findViewById(R.id.button3));
-//        btns.add((Button) findViewById(R.id.button4));
-//        btns.add((Button)findViewById(R.id.button5));
-//        btns.add((Button)findViewById(R.id.button6));
-//        btns.add((Button)findViewById(R.id.button7));
-//        btns.add((Button) findViewById(R.id.button8));
-//        createEventButton(btns);
-//        return btns;
-//    }
+    private List<Button> generateButton(){
+        List<Button> btns = new ArrayList<>();
+        btns.add((Button)findViewById(R.id.button1));
+        btns.add((Button)findViewById(R.id.button2));
+        btns.add((Button) findViewById(R.id.button3));
+        btns.add((Button) findViewById(R.id.button4));
+        btns.add((Button) findViewById(R.id.button5));
+        btns.add((Button)findViewById(R.id.button6));
+        btns.add((Button)findViewById(R.id.button7));
+        btns.add((Button)findViewById(R.id.button8));
+        btns.add((Button) findViewById(R.id.button9));
+        createEventButton(btns);
+        return btns;
+    }
 
-//    private void randomSetValueButton(List<Button> btns,String[] params){
-//        List<Button> tempBtns = new ArrayList<Button>();
-//        tempBtns.addAll(btns);
-//        for (String ans : params){
-//            int randomBtn = new Random().nextInt(tempBtns.size());
-//            tempBtns.get(randomBtn).setText(ans);
-//            tempBtns.remove(randomBtn);
-//        }
-//    }
+    private void randomSetValueButton(List<Button> btns, String[] params){
+        List<Button> tempBtns = new ArrayList<>();
+        tempBtns.addAll(btns);
+        for (String ans : params){
+            int randomBtn = new Random().nextInt(tempBtns.size());
+            tempBtns.get(randomBtn).setText(ans);
+            tempBtns.remove(randomBtn);
+        }
+    }
 
-//    private void createEventButton(List<Button> btns){
-//        for (final Button btn: btns) {
-//            btn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    String text = (String) btn.getText();
-//                    gcs.sendGameEvent("numeric_ans", new String[]{text});
-//                }
-//            });
-//        }
-//    }
+    private void createEventButton(List<Button> btns){
+        for (final Button btn: btns) {
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String text = (String) btn.getText();
+                    gcs.sendGameEvent("numeric_ans", new String[]{text});
+                }
+            });
+        }
+    }
     @Override
     public void onGameEvent(String event, String[] params) {
-//        if(event.equals("numeric_question")){
-//            Log.d(Utils.TAG, "processing game event (NUMERIC): " + event);
-//            randomSetValueButton(btns, params);
-//            Log.d(Utils.TAG, "params" + params[0]);
-//        }else if(event.equals("numeric_change")){
-//            isAnswering = false;
-//            ready();
-//        }
+        if(event.equals("numeric_question")){
+            Log.d(Utils.TAG, "processing game event (NUMERIC): " + event);
+            randomSetValueButton(btns, params);
+            Log.d(Utils.TAG, "params" + params[0]);
+        }else if(event.equals("numeric_change")){
+            isAnswering = false;
+            ready();
+        }
     }
 
     public void ready() {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
-//        gcs.sendGameEvent("numeric_ready", new String[]{"Ready"});
+        gcs.sendGameEvent("numeric_ready", new String[]{"Ready"});
     }
 
     @Override

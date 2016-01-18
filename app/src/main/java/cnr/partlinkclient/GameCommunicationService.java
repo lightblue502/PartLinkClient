@@ -23,6 +23,25 @@ public class GameCommunicationService extends Service implements GameCommunicati
         setAndroidId(Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
     }
 
+    @Override
+    public void onIncomingEvent(String line) {
+        if(line != null){
+            int idx = line.indexOf('|');
+            String event = null;
+            String[] params = null;
+            if(idx > 0){
+                event = line.substring(0, idx );
+                params = line.substring(idx + 1).split(",");
+            }else if(idx < 0 && line.length() > 0){
+                event = line;
+                params = new String[]{};
+//                params =  new HashMap<String, Object>();
+            }
+            if(event != null)
+                sendEvent(event, params);
+        }
+
+    }
     public void sendGameEvent(String event, String[] params){
         StringBuilder sb = new StringBuilder(event);
         sb.append('|');
@@ -35,14 +54,10 @@ public class GameCommunicationService extends Service implements GameCommunicati
         gameCommunicator.sendData(sb.toString());
     }
 
-    @Override
-    public void onIncomingEvent(String event, String[] params) {
-        sendEvent(event, params);
-    }
-
     private void sendEvent(String name, String[] params){
         Intent intent = new Intent("game-event");
         intent.putExtra("name", name);
+        intent.putExtra("params", params);
         Log.d(Utils.TAG, "broadcasting game event: " + name);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }

@@ -48,31 +48,15 @@ public abstract class GameActivity extends Activity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 String event = intent.getStringExtra("name");
-                IncomingData(event);
-//                onGameEvent(event, new HashMap<String, Object>());
+                String[] params = intent.getStringArrayExtra("params");
+                onGameEvent(event, params);
             }
         };
 
         LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
                 new IntentFilter("game-event"));
     }
-    public void IncomingData(String line){
-        if(line != null){
-            int idx = line.indexOf('|');
-            String event = null;
-            String[] params = null;
-            if(idx > 0){
-                event = line.substring(0, idx );
-                params = line.substring(idx + 1).split(",");
-            }else if(idx < 0 && line.length() > 0){
-                event = line;
-//                params =  new HashMap<String, Object>();
-            }
-            if(event != null)
-                onGameEvent(event, params);
-        }
 
-    }
     public abstract void onGameEvent(String event, String[] params);
 
     @Override

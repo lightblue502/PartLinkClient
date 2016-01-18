@@ -29,7 +29,7 @@ public class GameCommunicator extends Thread {
     }
 
     public void processData(String line){
-        listener.onIncomingEvent(line, new String[0]);
+        listener.onIncomingEvent(line);
     }
 
     public void sendData(String line){

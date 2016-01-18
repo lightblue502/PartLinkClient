@@ -86,7 +86,7 @@ public class NumericActivity extends GameActivity {
         if(event.equals("numeric_question")){
             Log.d(Utils.TAG, "processing game event (NUMERIC): " + event);
             randomSetValueButton(btns, params);
-            Log.d(Utils.TAG, "params" + params[0]);
+//            Log.d(Utils.TAG, "params" + params[0]);
         }else if(event.equals("numeric_change")){
             isAnswering = false;
             ready();

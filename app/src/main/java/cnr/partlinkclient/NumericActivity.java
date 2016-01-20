@@ -31,6 +31,7 @@ public class NumericActivity extends GameActivity {
         setContentView(R.layout.activity_numeric);
         super.initialServiceBinding();
         btns = generateButton();
+        resetTextButton();
 
 //        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
 //            WebView.setWebContentsDebuggingEnabled(true);
@@ -81,6 +82,13 @@ public class NumericActivity extends GameActivity {
             });
         }
     }
+
+    private  void resetTextButton(){
+        Log.d("DEBUG_resetTextButton", "can i reset?");
+        for (Button btn :btns){
+            btn.setText("");
+        }
+    }
     @Override
     public void onGameEvent(String event, String[] params) {
         if(event.equals("numeric_question")){
@@ -89,18 +97,21 @@ public class NumericActivity extends GameActivity {
 //            Log.d(Utils.TAG, "params" + params[0]);
         }else if(event.equals("numeric_change")){
             isAnswering = false;
-            ready();
+            again();
+        }else if(event.equals("numeric_ready")){
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(500);
+        }else if(event.equals("numeric_newRound")){
+            resetTextButton();
         }
     }
 
-    public void ready() {
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(500);
-        gcs.sendGameEvent("numeric_ready", new String[]{"Ready"});
+    public void again() {
+        gcs.sendGameEvent("numeric_again", new String[]{"again"});
     }
 
     @Override
     protected void onServiceConnected() {
-        ready();
+        again();
     }
 }

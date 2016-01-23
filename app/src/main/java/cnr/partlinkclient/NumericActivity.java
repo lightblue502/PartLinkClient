@@ -2,7 +2,6 @@ package cnr.partlinkclient;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -10,8 +9,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +28,7 @@ public class NumericActivity extends GameActivity {
         setContentView(R.layout.activity_numeric);
         super.initialServiceBinding();
         btns = generateButton();
+        resetTextButton();
 
 //        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
 //            WebView.setWebContentsDebuggingEnabled(true);
@@ -81,21 +79,30 @@ public class NumericActivity extends GameActivity {
             });
         }
     }
+
+    private  void resetTextButton(){
+        Log.d("DEBUG_resetTextButton", "can i reset?");
+        for (Button btn :btns){
+            btn.setText("");
+        }
+    }
     @Override
     public void onGameEvent(String event, String[] params) {
         if(event.equals("numeric_question")){
             Log.d(Utils.TAG, "processing game event (NUMERIC): " + event);
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(500);
             randomSetValueButton(btns, params);
 //            Log.d(Utils.TAG, "params" + params[0]);
-        }else if(event.equals("numeric_change")){
+        }else if(event.equals("numeric_again")) {
             isAnswering = false;
             ready();
+        }else if(event.equals("numeric_newRound")){
+            resetTextButton();
         }
     }
 
     public void ready() {
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(500);
         gcs.sendGameEvent("numeric_ready", new String[]{"Ready"});
     }
 

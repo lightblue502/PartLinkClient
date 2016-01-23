@@ -38,6 +38,11 @@ public class RegisterActivity extends GameActivity {
             intent.putExtra("numeric_game", "Ready");
             startActivity(intent);
         }
+        if(event.equals("qa_start")){
+            Intent intent = new Intent(this, QAActivity.class);
+            intent.putExtra("qa_game", "Ready");
+            startActivity(intent);
+        }
 
         if(event.equals("register_ok")){
             ((Button)findViewById(R.id.registerBtn)).setEnabled(false);

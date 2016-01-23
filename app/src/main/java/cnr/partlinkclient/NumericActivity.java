@@ -90,14 +90,13 @@ public class NumericActivity extends GameActivity {
     public void onGameEvent(String event, String[] params) {
         if(event.equals("numeric_question")){
             Log.d(Utils.TAG, "processing game event (NUMERIC): " + event);
-            randomSetValueButton(btns, params);
-//            Log.d(Utils.TAG, "params" + params[0]);
-        }else if(event.equals("numeric_again")){
-            isAnswering = false;
-            ready();
-        }else if(event.equals("numeric_vibrate")){
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);
+            randomSetValueButton(btns, params);
+//            Log.d(Utils.TAG, "params" + params[0]);
+        }else if(event.equals("numeric_again")) {
+            isAnswering = false;
+            ready();
         }else if(event.equals("numeric_newRound")){
             resetTextButton();
         }

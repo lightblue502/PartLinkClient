@@ -2,7 +2,6 @@ package cnr.partlinkclient;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -10,8 +9,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,10 +92,10 @@ public class NumericActivity extends GameActivity {
             Log.d(Utils.TAG, "processing game event (NUMERIC): " + event);
             randomSetValueButton(btns, params);
 //            Log.d(Utils.TAG, "params" + params[0]);
-        }else if(event.equals("numeric_change")){
+        }else if(event.equals("numeric_again")){
             isAnswering = false;
-            again();
-        }else if(event.equals("numeric_ready")){
+            ready();
+        }else if(event.equals("numeric_vibrate")){
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);
         }else if(event.equals("numeric_newRound")){
@@ -106,12 +103,12 @@ public class NumericActivity extends GameActivity {
         }
     }
 
-    public void again() {
-        gcs.sendGameEvent("numeric_again", new String[]{"again"});
+    public void ready() {
+        gcs.sendGameEvent("numeric_ready", new String[]{"Ready"});
     }
 
     @Override
     protected void onServiceConnected() {
-        again();
+        ready();
     }
 }

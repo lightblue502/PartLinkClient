@@ -26,24 +26,8 @@ public class RegisterActivity extends GameActivity {
 
     @Override
     public void onGameEvent(final String event, String[] params) {
+        super.onGameEvent(event, params);
         Log.d(Utils.TAG, "processing game event (MAIN): " + event);
-        if (event.equals("shake-start")) {
-            Intent intent = new Intent(this, ShakeActivity.class);
-            intent.putExtra("shake_game", "Ready");
-            startActivity(intent);
-        }
-
-        if(event.equals("numeric_start")){
-            Intent intent = new Intent(this, NumericActivity.class);
-            intent.putExtra("numeric_game", "Ready");
-            startActivity(intent);
-        }
-        if(event.equals("qa_start")){
-            Intent intent = new Intent(this, QAActivity.class);
-            intent.putExtra("qa_game", "Ready");
-            startActivity(intent);
-        }
-
         if(event.equals("register_ok")){
             ((Button)findViewById(R.id.registerBtn)).setEnabled(false);
         }

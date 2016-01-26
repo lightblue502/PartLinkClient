@@ -57,7 +57,22 @@ public abstract class GameActivity extends Activity {
                 new IntentFilter("game-event"));
     }
 
-    public abstract void onGameEvent(String event, String[] params);
+    public void onGameEvent(String event, String[] params){
+        if (event.equals("shake-start")) {
+            Intent intent = new Intent(this, ShakeActivity.class);
+            intent.putExtra("shake_game", "Ready");
+            startActivity(intent);
+        }else if(event.equals("numeric_start")){
+            Intent intent = new Intent(this, NumericActivity.class);
+            intent.putExtra("numeric_game", "Ready");
+            startActivity(intent);
+        }else if(event.equals("qa_start")){
+            Intent intent = new Intent(this, QAActivity.class);
+            intent.putExtra("qa_game", "Ready");
+            startActivity(intent);
+        }
+
+    }
 
     @Override
     protected void onResume(){

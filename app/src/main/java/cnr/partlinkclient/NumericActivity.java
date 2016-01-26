@@ -89,6 +89,7 @@ public class NumericActivity extends GameActivity {
     }
     @Override
     public void onGameEvent(String event, String[] params) {
+        super.onGameEvent(event, params);
         if(event.equals("numeric_question")){
             canAnswer = true;
             Log.d(Utils.TAG, "processing game event (NUMERIC): " + event);
@@ -109,10 +110,6 @@ public class NumericActivity extends GameActivity {
 
         }else if(event.equals("endGame")){
             Log.d(Utils.TAG,"endGame");
-        }else if(event.equals("qa_start")){
-            Intent intent = new Intent(this, QAActivity.class);
-            intent.putExtra("qa_game", "Ready");
-            startActivity(intent);
         }
     }
 

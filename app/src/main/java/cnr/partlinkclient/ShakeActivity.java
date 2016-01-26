@@ -47,6 +47,7 @@ public class ShakeActivity extends GameActivity {
 
     @Override
     public void onGameEvent(final String event, String[] params) {
+        super.onGameEvent(event, params);
         Log.d(Utils.TAG, "processing game event (SHAKE): " + event);
         if(event.equals("this_shake")){
             tv.setText("SHAKE NOW");
@@ -55,10 +56,6 @@ public class ShakeActivity extends GameActivity {
             isShake = false;
             tv.setText("STOP");
             ready();
-        }else if(event.equals("numeric_start")){
-            Intent intent = new Intent(this, NumericActivity.class);
-            intent.putExtra("numeric_game", "Ready");
-            startActivity(intent);
         }
 
     }

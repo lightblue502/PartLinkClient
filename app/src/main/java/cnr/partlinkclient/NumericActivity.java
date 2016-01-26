@@ -20,7 +20,7 @@ public class NumericActivity extends GameActivity {
     private Intent intent;
     private String event;
     private int ans;
-    private boolean isAnswering;
+    private boolean canAnswer;
     private WebView wv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class NumericActivity extends GameActivity {
 
     private List<Button> generateButton(){
         List<Button> btns = new ArrayList<>();
-        btns.add((Button)findViewById(R.id.button1));
+        btns.add((Button) findViewById(R.id.button1));
         btns.add((Button)findViewById(R.id.button2));
         btns.add((Button) findViewById(R.id.button3));
         btns.add((Button) findViewById(R.id.button4));
@@ -74,7 +74,8 @@ public class NumericActivity extends GameActivity {
                 @Override
                 public void onClick(View v) {
                     String text = (String) btn.getText();
-                    gcs.sendGameEvent("numeric_ans", new String[]{text});
+                    if (canAnswer)
+                        gcs.sendGameEvent("numeric_ans", new String[]{text});
                 }
             });
         }
@@ -89,16 +90,29 @@ public class NumericActivity extends GameActivity {
     @Override
     public void onGameEvent(String event, String[] params) {
         if(event.equals("numeric_question")){
+            canAnswer = true;
             Log.d(Utils.TAG, "processing game event (NUMERIC): " + event);
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);
             randomSetValueButton(btns, params);
 //            Log.d(Utils.TAG, "params" + params[0]);
         }else if(event.equals("numeric_again")) {
-            isAnswering = false;
+            canAnswer = false;
             ready();
         }else if(event.equals("numeric_newRound")){
             resetTextButton();
+        }else if(event.equals("numeric_restart")){
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }else if(event.equals("numeric_pause")){
+
+        }else if(event.equals("endGame")){
+            Log.d(Utils.TAG,"endGame");
+        }else if(event.equals("qa_start")){
+            Intent intent = new Intent(this, QAActivity.class);
+            intent.putExtra("qa_game", "Ready");
+            startActivity(intent);
         }
     }
 

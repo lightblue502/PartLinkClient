@@ -59,6 +59,10 @@ public class ShakeActivity extends GameActivity {
             Intent intent = new Intent(this, NumericActivity.class);
             intent.putExtra("numeric_game", "Ready");
             startActivity(intent);
+        }else if(event.equals("qa_start")){
+            Intent intent = new Intent(this,QAActivity.class);
+            intent.putExtra("qa_game", "Ready");
+            startActivity(intent);
         }
 
     }

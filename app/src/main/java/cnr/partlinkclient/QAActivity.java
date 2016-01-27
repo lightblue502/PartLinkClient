@@ -77,6 +77,7 @@ public class QAActivity extends GameActivity {
 
     @Override
     public void onGameEvent(String event, String[] params) {
+        super.onGameEvent(event, params);
         Log.d(Utils.TAG, "processing game event (QA): " + event);
         Log.d(Utils.TAG, "isAsk(QA): " + isAsk);
         if (event.equals("qa_choices") && !isAsk) {

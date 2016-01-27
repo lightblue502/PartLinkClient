@@ -47,6 +47,7 @@ public class ShakeActivity extends GameActivity {
 
     @Override
     public void onGameEvent(final String event, String[] params) {
+        super.onGameEvent(event, params);
         Log.d(Utils.TAG, "processing game event (SHAKE): " + event);
         if(event.equals("this_shake")){
             tv.setText("SHAKE NOW");

@@ -28,7 +28,8 @@
         <activity android:name=".ShakeActivity" />
         <activity android:name=".NumericActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".QAActivity"></activity>
+        <activity android:name=".QAActivity" />
+        <activity android:name=".ResultActivity"></activity>
     </application>
 
 </manifest>

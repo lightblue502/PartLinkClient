@@ -27,7 +27,8 @@
             fbutton:shadowColor="@color/fbutton_color_asbestos"
             fbutton:cornerRadius="30dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp" />
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp" />
 
         <info.hoang8f.widget.FButton
             android:text="button2"
@@ -40,7 +41,8 @@
             fbutton:shadowColor="@color/fbutton_color_green_sea"
             fbutton:cornerRadius="30dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp" />
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp" />
 
         <info.hoang8f.widget.FButton
             android:text="button3"
@@ -53,7 +55,8 @@
             fbutton:shadowColor="@color/fbutton_color_nephritis"
             fbutton:cornerRadius="30dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp" />
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,7 +76,8 @@
             fbutton:shadowColor="@color/fbutton_color_belize_hole"
             fbutton:cornerRadius="30dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp" />
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp" />
 
         <info.hoang8f.widget.FButton
             android:text="button5"
@@ -86,7 +90,8 @@
             fbutton:shadowColor="@color/fbutton_color_wisteria"
             fbutton:cornerRadius="30dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp" />
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp" />
 
         <info.hoang8f.widget.FButton
             android:text="button6"
@@ -99,7 +104,8 @@
             fbutton:shadowColor="@color/fbutton_color_orange"
             fbutton:cornerRadius="30dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp" />
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,7 +124,8 @@
             fbutton:shadowColor="@color/fbutton_color_pumpkin"
             fbutton:cornerRadius="30dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp" />
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp" />
 
         <info.hoang8f.widget.FButton
             android:text="button8"
@@ -131,7 +138,8 @@
             fbutton:shadowColor="@color/fbutton_color_pomegranate"
             fbutton:cornerRadius="30dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp" />
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp" />
 
         <info.hoang8f.widget.FButton
             android:text="button9"
@@ -140,11 +148,12 @@
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="1"
-            fbutton:buttonColor="@color/fbutton_color_clouds"
-            fbutton:shadowColor="@color/fbutton_color_silver"
+            fbutton:buttonColor="@color/fbutton_color_lightpink"
+            fbutton:shadowColor="@color/fbutton_color_darkpink"
             fbutton:cornerRadius="30dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp" />
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp" />
     </LinearLayout>
 
 </LinearLayout>

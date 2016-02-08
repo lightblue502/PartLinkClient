@@ -13,10 +13,10 @@ public class EndActivity extends GameActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.initialServiceBinding();
-        setContentView(R.layout.activity_result);
+        setContentView(R.layout.activity_end);
 
         intent = getIntent();
-        event = intent.getStringExtra("result");
+        event = intent.getStringExtra("end");
         onGameEvent(event, null);
 
         ((Button)findViewById(R.id.nextGame)).setOnClickListener(new View.OnClickListener() {
@@ -27,7 +27,7 @@ public class EndActivity extends GameActivity {
         });
     }
     public void ready() {
-        gcs.sendGameEvent("result_ready", new String[]{"Ready"});
+        gcs.sendGameEvent("end_ready", new String[]{"Ready"});
     }
 
     public void nextGame() {

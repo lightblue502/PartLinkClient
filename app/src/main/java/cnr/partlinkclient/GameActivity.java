@@ -73,6 +73,11 @@ public abstract class GameActivity extends Activity {
             intent.putExtra("result", "Ready");
             startActivity(intent);
         }
+        else if(event.equals("end_start")){
+            Intent intent = new Intent(this, EndActivity.class);
+            intent.putExtra("end", "Ready");
+            startActivity(intent);
+        }
 
     }
 

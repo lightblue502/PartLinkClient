@@ -11,7 +11,7 @@
     tools:context=".ResultActivity">
 
     <info.hoang8f.widget.FButton
-        android:text="next game"
+        android:text="NEXT GAME"
         android:id="@+id/nextGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

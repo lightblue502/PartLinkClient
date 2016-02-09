@@ -25,6 +25,7 @@ public class ShakeActivity extends GameActivity {
     private Intent intent;
     private boolean isShake;
     private String event;
+    private boolean isResumeAfterPause = false;
 
     private int[] colorList = new int[]{Color.GREEN, Color.RED, Color.BLUE, Color.WHITE, Color.YELLOW, Color.CYAN};
     private int currColor = 0;
@@ -93,19 +94,33 @@ public class ShakeActivity extends GameActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        mShaker.resume();
+    protected void onServiceConnected() {
+        ready();
     }
 
     @Override
     protected void onPause() {
         mShaker.pause();
         super.onPause();
+        isResumeAfterPause = true;
+        gcs.sendGameEvent("game_pause", new String[]{});
+        Log.d(Utils.TAG, "IN onPause");
     }
 
     @Override
-    protected void onServiceConnected() {
-        ready();
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mShaker.resume();
+        if(isResumeAfterPause) {
+            isResumeAfterPause = false;
+            super.initialServiceBinding();
+            gcs.sendGameEvent("game_resume", new String[]{});
+        }
+        Log.d(Utils.TAG, "IN onResume");
     }
 }

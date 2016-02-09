@@ -25,6 +25,7 @@ public class QAActivity extends GameActivity {
     private Intent intent;
     private String event;
     private boolean isAsk = false;
+    private boolean isResumeAfterPause = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,6 +222,29 @@ public class QAActivity extends GameActivity {
             return inflater.inflate(R.layout.standby, container, false);
 
         }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isResumeAfterPause = true;
+        gcs.sendGameEvent("game_pause", new String[]{});
+        Log.d(Utils.TAG, "IN onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isResumeAfterPause) {
+            isResumeAfterPause = false;
+            super.initialServiceBinding();
+            gcs.sendGameEvent("game_resume", new String[]{});
+        }
+        Log.d(Utils.TAG, "IN onResume");
     }
 }
 

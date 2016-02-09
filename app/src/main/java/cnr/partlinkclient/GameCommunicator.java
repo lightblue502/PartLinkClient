@@ -16,7 +16,7 @@ import java.net.Socket;
  */
 public class GameCommunicator extends Thread {
     private GameCommunicationListener listener;
-    private Socket gameSocket;
+    private Socket gameSocket = null;
     private BufferedReader reader;
     private PrintWriter writer;
     private String ipAddress = null;
@@ -39,24 +39,32 @@ public class GameCommunicator extends Thread {
     }
 
     public void run(){
-
+        Log.d(Utils.TAG," IP: " + ipAddress + " Port: " + port);
         if(ipAddress != null && port != null) {
             Log.d(Utils.TAG, "In GAME-COME || IP :"+ipAddress + " | "+ port);
             while (true) {
                 try {
-                    Log.d(Utils.TAG, "On Connected");
+
                     gameSocket = new Socket(ipAddress, port);
                     reader = new BufferedReader(new InputStreamReader(gameSocket.getInputStream()));
                     writer = new PrintWriter(gameSocket.getOutputStream());
-
-                    if (gameSocket != null) {
-                        sendData(listener.getAndroidId());
+                    Log.d(Utils.TAG, reader.toString());
+                    if (gameSocket != null && reader != null) {
+                        Log.d(Utils.TAG, "gameSocket" + gameSocket.getLocalSocketAddress().toString());
+                        writer.println(listener.getAndroidId());
+                        writer.flush();
+                        Log.d(Utils.TAG, "Sending Android ID Data");
                     }
 
                     String line = null;
                     while ((line = reader.readLine()) != null) {
+                        Log.d(Utils.TAG, "readLine()" + line);
                         processData(line);
                     }
+                    if((line = reader.readLine()) == null){
+                        Log.d(Utils.TAG, "readLine() is NULL");
+                    }
+                    Log.d(Utils.TAG, "outside Loop!!!!!");
                 } catch (Exception e) {
                     Log.d(Utils.TAG, "connection failed:" + e.toString());
                 }

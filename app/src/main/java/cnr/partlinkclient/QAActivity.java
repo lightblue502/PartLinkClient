@@ -90,6 +90,10 @@ public class QAActivity extends GameActivity {
             isAsk = true;
             Log.d("QA", "params" + params[0]);
             changeToAskFragment(params);
+        } else if (event.equals("player_reconnect")){
+            Log.d("DEBUG_QAactivity","user has reconnect and ready");
+            isAsk = false;
+            ready();
         }
     }
 

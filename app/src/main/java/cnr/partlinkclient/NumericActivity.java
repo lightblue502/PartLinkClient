@@ -1,5 +1,7 @@
 package cnr.partlinkclient;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class NumericActivity extends GameActivity {
+public class NumericActivity extends GameActivity implements SuicidalFragmentListener{
     private TextView tv;
     private List<Button> btns;
     private Intent intent;
     private String event;
     private int ans;
     private boolean canAnswer;
+    private boolean isResumeAfterPause = false;
     private WebView wv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +33,6 @@ public class NumericActivity extends GameActivity {
         btns = generateButton();
         resetTextButton();
 
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-//            WebView.setWebContentsDebuggingEnabled(true);
-//        }
-//        wv = (WebView)findViewById(R.id.webView);
-//        wv.loadData("<h3> Hello world</h3>", "text/html","UTF-8");
-//        wv.loadUrl("file:///android_asset/numeric.html");
-//        wv.getSettings().setJavaScriptEnabled(true); // ทำให้ java script รันได้ใน java
-//        wv.addJavascriptInterface(new JavaScriptInterface(this), "Android");
         intent = getIntent();
         event = intent.getStringExtra("numeric_game");
         onGameEvent(event, null);
@@ -51,7 +46,7 @@ public class NumericActivity extends GameActivity {
         btns.add((Button) findViewById(R.id.button4));
         btns.add((Button) findViewById(R.id.button5));
         btns.add((Button)findViewById(R.id.button6));
-        btns.add((Button)findViewById(R.id.button7));
+        btns.add((Button) findViewById(R.id.button7));
         btns.add((Button)findViewById(R.id.button8));
         btns.add((Button) findViewById(R.id.button9));
         createEventButton(btns);
@@ -89,6 +84,7 @@ public class NumericActivity extends GameActivity {
     }
     @Override
     public void onGameEvent(String event, String[] params) {
+        Log.d(Utils.TAG, "EVENT :" + event);
         super.onGameEvent(event, params);
         if(event.equals("numeric_question")){
             canAnswer = true;
@@ -96,7 +92,6 @@ public class NumericActivity extends GameActivity {
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);
             randomSetValueButton(btns, params);
-//            Log.d(Utils.TAG, "params" + params[0]);
         }else if(event.equals("numeric_again")) {
             canAnswer = false;
             ready();
@@ -106,10 +101,16 @@ public class NumericActivity extends GameActivity {
             Intent intent = getIntent();
             finish();
             startActivity(intent);
-        }else if(event.equals("numeric_pause")){
+        }else if(event.equals("numeric_pause")) {
 
+        }else if (event.equals("player_reconnect")){
+                Log.d("DEBUG_QAactivity","user has reconnect and ready");
+                ready();
         }else if(event.equals("endGame")){
             Log.d(Utils.TAG,"endGame");
+        }else if(event.equals("game_resume")){
+            Log.d(Utils.TAG,"resumeGame");
+            ready();
         }
     }
 
@@ -119,6 +120,58 @@ public class NumericActivity extends GameActivity {
 
     @Override
     protected void onServiceConnected() {
+        Log.d(Utils.TAG, "onServiceConnected");
         ready();
+    }
+
+    public void pauseTheGame(View view){
+        Log.d(Utils.TAG, "Game is pause");
+        changeToPauseFragment();
+        gcs.sendGameEvent("game_pause", new String[]{});
+
+    }
+    /////////////////////// Pause Fragment /////////////////////////////////
+    public void changeToPauseFragment(){
+        PauseFragment fragment = new PauseFragment();
+        fragment.setGameCommunicationService(gcs);
+        addFragment(fragment);
+
+    }
+    public void addFragment(Fragment fragment){
+        FragmentTransaction ft = getFragmentManager().beginTransaction().add(R.id.fragment_container, fragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    @Override
+    public void onSuicidePauseFragment() {
+        Log.d(Utils.TAG, "Suicide Fragment");
+        getFragmentManager().popBackStack();
+    }
+    ///////////////////////////////////////////////////////////////////////////
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isResumeAfterPause = true;
+        gcs.sendGameEvent("game_pause", new String[]{});
+        Log.d(Utils.TAG, "IN onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isResumeAfterPause) {
+            isResumeAfterPause = false;
+            super.initialServiceBinding();
+            gcs.sendGameEvent("game_resume", new String[]{});
+        }
+        Log.d(Utils.TAG, "IN onResume");
     }
 }

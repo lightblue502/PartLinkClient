@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class GameCommunicationService extends Service implements GameCommunicationListener {
     private final IBinder binder = new GameCommunicationServiceBinder();
-    private GameCommunicator gameCommunicator;
+    private GameCommunicator gameCommunicator = null;
     private String android_id;
     private String ipAddress;
     private Integer port;
@@ -66,10 +66,15 @@ public class GameCommunicationService extends Service implements GameCommunicati
     public IBinder onBind(Intent intent) {
         ipAddress = intent.getStringExtra("ipAddress");
         port = intent.getIntExtra("port", 0);
+        startGameCommunicator();
+        Log.d(Utils.TAG, "OnBind");
 
+        return binder;
+    }
+
+    public void startGameCommunicator(){
         gameCommunicator = new GameCommunicator(this, ipAddress, port);
         gameCommunicator.start();
-        return binder;
     }
 
     public void setAndroidId(String android_id){

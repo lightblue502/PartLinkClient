@@ -11,8 +11,6 @@ import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import java.util.HashMap;
-
 /**
  * Created by suthon on 12/23/2015.
  */
@@ -69,6 +67,15 @@ public abstract class GameActivity extends Activity {
         }else if(event.equals("qa_start")){
             Intent intent = new Intent(this, QAActivity.class);
             intent.putExtra("qa_game", "Ready");
+            startActivity(intent);
+        }else if(event.equals("result_start")){
+            Intent intent = new Intent(this, ResultActivity.class);
+            intent.putExtra("result", "Ready");
+            startActivity(intent);
+        }
+        else if(event.equals("end_start")){
+            Intent intent = new Intent(this, EndActivity.class);
+            intent.putExtra("end", "Ready");
             startActivity(intent);
         }
 

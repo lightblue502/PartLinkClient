@@ -1,23 +1,51 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f0000000"
+    android:orientation="vertical"
+    android:weightSum="6"
     tools:context="cnr.partlinkclient.PauseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/abc_action_bar_content_inset_material"
-        android:textAlignment="center"
-        android:text="Game Pause" />
+        android:layout_weight="1">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Resume"
-        android:id="@+id/resumeBtn"
-        android:layout_gravity="center"
-        android:onClick="resumeToGame"/>
+        <TextView
+            android:text="GAME PAUSE"
+            android:textColor="@color/primary_material_light"
+            android:gravity="center"
+            android:textSize="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</FrameLayout>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="5">
+
+        <info.hoang8f.widget.FButton
+            android:text="RESUME"
+            android:id="@+id/resumeBtn"
+            android:onClick="resumeToGame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            fbutton:buttonColor="@color/fbutton_color_peter_river"
+            fbutton:shadowColor="@color/fbutton_color_belize_hole"
+            fbutton:cornerRadius="10dp"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp"
+            />
+    </RelativeLayout>
+
+</LinearLayout>

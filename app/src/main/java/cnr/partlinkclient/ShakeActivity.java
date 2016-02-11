@@ -38,6 +38,7 @@ public class ShakeActivity extends GameActivity {
         setContentView(R.layout.activity_shake);
         super.initialServiceBinding();
 
+        super.container = R.id.bgLayout;
         intent = getIntent();
         event = intent.getStringExtra("shake_game");
         tv = (TextView)findViewById(R.id.shakeView);
@@ -99,21 +100,14 @@ public class ShakeActivity extends GameActivity {
         ready();
     }
 
-    @Override
-    public void onBackPressed() {
-        Log.d(Utils.TAG, "Game is pause");
-        super.changeToPauseFragment(R.id.bgLayout);
-        gcs.sendGameEvent("game_pause", new String[]{});
-
-    }
 
     @Override
     protected void onPause() {
         mShaker.pause();
         super.onPause();
+        changeToPauseFragment();
         isResumeAfterPause = true;
         gcs.sendGameEvent("game_pause", new String[]{});
-        Log.d(Utils.TAG, "IN onPause");
     }
 
     @Override

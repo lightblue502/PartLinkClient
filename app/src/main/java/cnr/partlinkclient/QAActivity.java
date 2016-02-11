@@ -24,9 +24,8 @@ public class QAActivity extends GameActivity {
     private List<Button> btns;
     private Intent intent;
     private String event;
-    private boolean isAsk = false;
     private boolean isResumeAfterPause = false;
-
+    private boolean isAsk = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +38,7 @@ public class QAActivity extends GameActivity {
             Log.d("QA", "gen");
         }
 
+        super.container = R.id.pause_container;
         intent = getIntent();
         event = intent.getStringExtra("qa_game");
 
@@ -101,13 +101,6 @@ public class QAActivity extends GameActivity {
         ready();
     }
 
-    @Override
-    public void onBackPressed() {
-        Log.d(Utils.TAG, "Game is pause");
-        super.changeToPauseFragment(R.id.pause_container);
-        gcs.sendGameEvent("game_pause", new String[]{});
-
-    }
 
     public static class AnswerFragment extends Fragment {
         public GameCommunicationService gcs;
@@ -233,8 +226,8 @@ public class QAActivity extends GameActivity {
     protected void onPause() {
         super.onPause();
         isResumeAfterPause = true;
+        changeToPauseFragment();
         gcs.sendGameEvent("game_pause", new String[]{});
-        Log.d(Utils.TAG, "IN onPause");
     }
 
     @Override

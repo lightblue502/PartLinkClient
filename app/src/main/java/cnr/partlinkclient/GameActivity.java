@@ -20,6 +20,7 @@ import android.util.Log;
 public abstract class GameActivity extends Activity {
     protected PauseFragment fragment;
     protected int container;
+    protected boolean isBackPress = false;
     protected GameCommunicationService gcs;
     protected boolean bound = false;
     private ServiceConnection serviceConnection;
@@ -78,10 +79,14 @@ public abstract class GameActivity extends Activity {
             intent.putExtra("result", "Ready");
             startActivity(intent);
         }
-        else if(event.equals("end_start")){
+        else if(event.equals("end_start")) {
             Intent intent = new Intent(this, EndActivity.class);
             intent.putExtra("end", "Ready");
             startActivity(intent);
+        }else if(event.equals("game_pause")){
+            if(!isBackPress) {
+                changeToPauseFragment();
+            }
         }else if(event.equals("resume_ok")) {
             try {
                 PauseFragment fragment = (PauseFragment) getFragmentManager().findFragmentById(container);
@@ -90,11 +95,13 @@ public abstract class GameActivity extends Activity {
                 Log.d(Utils.TAG, e.toString());
             }
         }else if(event.equals("game_resume")){
+            isBackPress = false;
             onSuicidePauseFragment();
             ready();
         }
     }
     public abstract void ready();
+
     @Override
     protected void onResume(){
         super.onResume();
@@ -102,14 +109,22 @@ public abstract class GameActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
+        Log.d(Utils.TAG, "onPause Game Activity");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 
     protected void onServiceConnected() {}
 
-    
-    protected void changeToPauseFragment(int container){
-        this.container = container;
+    @Override
+    public void onBackPressed() {
+        Log.d(Utils.TAG, "Game is pause");
+        isBackPress = true;
+        changeToPauseFragment();
+        gcs.sendGameEvent("game_pause", new String[]{});
+
+    }
+
+    protected void changeToPauseFragment(){
         try {
             Bundle bundle = new Bundle();
             fragment = PauseFragment.newInstance(bundle);

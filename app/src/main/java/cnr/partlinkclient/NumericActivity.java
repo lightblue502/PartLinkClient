@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class NumericActivity extends GameActivity implements SuicidalFragmentListener{
+public class NumericActivity extends GameActivity {
     private TextView tv;
     private List<Button> btns;
     private Intent intent;
+    private boolean isResumeAfterPause = false;
     private String event;
     private int ans;
     private boolean canAnswer;
-    private boolean isResumeAfterPause = false;
     private WebView wv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class NumericActivity extends GameActivity implements SuicidalFragmentLis
         btns = generateButton();
         resetTextButton();
 
+        super.container = R.id.fragment_container;
         intent = getIntent();
         event = intent.getStringExtra("numeric_game");
         onGameEvent(event, null);
@@ -123,20 +124,11 @@ public class NumericActivity extends GameActivity implements SuicidalFragmentLis
 
 
     @Override
-    public void onBackPressed() {
-        Log.d(Utils.TAG, "Game is pause");
-        super.changeToPauseFragment(R.id.fragment_container);
-        gcs.sendGameEvent("game_pause", new String[]{});
-
-    }
-
-
-    @Override
     protected void onPause() {
         super.onPause();
+        changeToPauseFragment();
         isResumeAfterPause = true;
         gcs.sendGameEvent("game_pause", new String[]{});
-        Log.d(Utils.TAG, "IN onPause");
     }
 
     @Override

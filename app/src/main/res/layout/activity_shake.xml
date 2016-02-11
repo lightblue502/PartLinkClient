@@ -11,11 +11,11 @@
     android:id="@+id/bgLayout">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/shakeView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:text="STOP" />
+        android:text="STOP"
+        android:textSize="80dp"
+        android:gravity="center" />
 
 </RelativeLayout>

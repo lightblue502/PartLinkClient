@@ -38,6 +38,11 @@ public class RegisterActivity extends GameActivity {
 
     }
 
+    @Override
+    public void ready() {
+
+    }
+
     public void register() {
         gcs.sendGameEvent("register", new String[]{nameEditText.getText().toString()});
     }

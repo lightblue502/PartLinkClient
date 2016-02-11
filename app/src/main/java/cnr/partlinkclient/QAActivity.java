@@ -69,7 +69,7 @@ public class QAActivity extends GameActivity {
 
     }
 
-
+    @Override
     public void ready() {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
@@ -79,8 +79,6 @@ public class QAActivity extends GameActivity {
     @Override
     public void onGameEvent(String event, String[] params) {
         super.onGameEvent(event, params);
-        Log.d(Utils.TAG, "processing game event (QA): " + event);
-        Log.d(Utils.TAG, "isAsk(QA): " + isAsk);
         if (event.equals("qa_choices") && !isAsk) {
             Log.d("QA", "params" + params);
             changeToAnswerFragment(params);
@@ -101,6 +99,14 @@ public class QAActivity extends GameActivity {
     @Override
     protected void onServiceConnected() {
         ready();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(Utils.TAG, "Game is pause");
+        super.changeToPauseFragment(R.id.pause_container);
+        gcs.sendGameEvent("game_pause", new String[]{});
+
     }
 
     public static class AnswerFragment extends Fragment {

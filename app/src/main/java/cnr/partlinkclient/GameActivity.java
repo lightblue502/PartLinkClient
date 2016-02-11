@@ -1,12 +1,15 @@
 package cnr.partlinkclient;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -15,6 +18,8 @@ import android.util.Log;
  * Created by suthon on 12/23/2015.
  */
 public abstract class GameActivity extends Activity {
+    protected PauseFragment fragment;
+    protected int container;
     protected GameCommunicationService gcs;
     protected boolean bound = false;
     private ServiceConnection serviceConnection;
@@ -77,10 +82,19 @@ public abstract class GameActivity extends Activity {
             Intent intent = new Intent(this, EndActivity.class);
             intent.putExtra("end", "Ready");
             startActivity(intent);
+        }else if(event.equals("resume_ok")) {
+            try {
+                PauseFragment fragment = (PauseFragment) getFragmentManager().findFragmentById(container);
+                fragment.areadyClickResume();
+            }catch (Exception e){
+                Log.d(Utils.TAG, e.toString());
+            }
+        }else if(event.equals("game_resume")){
+            onSuicidePauseFragment();
+            ready();
         }
-
     }
-
+    public abstract void ready();
     @Override
     protected void onResume(){
         super.onResume();
@@ -88,11 +102,32 @@ public abstract class GameActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(Utils.TAG, "onStop");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
     }
 
-    protected void onServiceConnected() {
+    protected void onServiceConnected() {}
 
+    
+    protected void changeToPauseFragment(int container){
+        this.container = container;
+        try {
+            Bundle bundle = new Bundle();
+            fragment = PauseFragment.newInstance(bundle);
+        }catch (Exception e){
+            Log.d(Utils.TAG, e.toString());
+        }
+        fragment.setGameCommunicationService(gcs);
+        addFragment(fragment, container);
+
+    }
+    private void addFragment(Fragment fragment, int container){
+        FragmentTransaction ft = getFragmentManager().beginTransaction().add(container, fragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    private void onSuicidePauseFragment() {
+        getFragmentManager().popBackStack();
     }
 }

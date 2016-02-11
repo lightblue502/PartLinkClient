@@ -108,12 +108,9 @@ public class NumericActivity extends GameActivity implements SuicidalFragmentLis
                 ready();
         }else if(event.equals("endGame")){
             Log.d(Utils.TAG,"endGame");
-        }else if(event.equals("game_resume")){
-            Log.d(Utils.TAG,"resumeGame");
-            ready();
         }
     }
-
+    @Override
     public void ready() {
         gcs.sendGameEvent("numeric_ready", new String[]{"Ready"});
     }
@@ -124,32 +121,15 @@ public class NumericActivity extends GameActivity implements SuicidalFragmentLis
         ready();
     }
 
-    public void pauseTheGame(View view){
+
+    @Override
+    public void onBackPressed() {
         Log.d(Utils.TAG, "Game is pause");
-        changeToPauseFragment();
+        super.changeToPauseFragment(R.id.fragment_container);
         gcs.sendGameEvent("game_pause", new String[]{});
 
     }
-    /////////////////////// Pause Fragment /////////////////////////////////
-    public void changeToPauseFragment(){
-        PauseFragment fragment = new PauseFragment();
-        fragment.setGameCommunicationService(gcs);
-        addFragment(fragment);
 
-    }
-    public void addFragment(Fragment fragment){
-        FragmentTransaction ft = getFragmentManager().beginTransaction().add(R.id.fragment_container, fragment);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.addToBackStack(null);
-        ft.commit();
-    }
-
-    @Override
-    public void onSuicidePauseFragment() {
-        Log.d(Utils.TAG, "Suicide Fragment");
-        getFragmentManager().popBackStack();
-    }
-    ///////////////////////////////////////////////////////////////////////////
 
     @Override
     protected void onPause() {

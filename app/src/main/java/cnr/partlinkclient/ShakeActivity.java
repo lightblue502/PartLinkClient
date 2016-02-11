@@ -78,8 +78,9 @@ public class ShakeActivity extends GameActivity {
             intent.putExtra("qa_game", "Ready");
             startActivity(intent);
         }
-
     }
+
+    @Override
     public void ready() {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
@@ -96,6 +97,14 @@ public class ShakeActivity extends GameActivity {
     @Override
     protected void onServiceConnected() {
         ready();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(Utils.TAG, "Game is pause");
+        super.changeToPauseFragment(R.id.bgLayout);
+        gcs.sendGameEvent("game_pause", new String[]{});
+
     }
 
     @Override

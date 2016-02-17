@@ -21,11 +21,13 @@ public class GameCommunicator extends Thread {
     private PrintWriter writer;
     private String ipAddress = null;
     private Integer port = null;
+    private int clientId;
 
     public GameCommunicator(GameCommunicationListener listener, String ipAddress, int port){
         this.listener = listener;
         this.ipAddress = ipAddress;
         this.port = port;
+        clientId = -1;
     }
 
     public void processData(String line){
@@ -51,9 +53,12 @@ public class GameCommunicator extends Thread {
                     Log.d(Utils.TAG, reader.toString());
                     if (gameSocket != null && reader != null) {
                         Log.d(Utils.TAG, "gameSocket" + gameSocket.getLocalSocketAddress().toString());
-                        writer.println(listener.getAndroidId());
+                        writer.println("ID=" + clientId);
                         writer.flush();
-                        Log.d(Utils.TAG, "Sending Android ID Data");
+                        String initial_line = reader.readLine(); //expect ID=x
+
+                        clientId = Integer.parseInt(initial_line.substring(3));
+                        Log.d(Utils.TAG, "An ID has been assigned => " + clientId);
                     }
 
                     String line = null;

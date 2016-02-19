@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#363636"
+    android:weightSum="1">
+
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="295dp"
+        android:text="\?"
+        android:textSize="230dp"
+        android:textColor="#f30009"
+        android:id="@+id/textView3"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Asking"
+        android:text="\nแม่นำ้เจ้าพระยา มีกี่่สาย?"
         android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:textSize="50dp"
+        android:textAlignment="center"
+        android:textColor="@color/primary_text_default_material_dark" />
+
 </LinearLayout>

@@ -11,7 +11,6 @@ import android.util.Log;
 public class GameCommunicationService extends Service implements GameCommunicationListener {
     private final IBinder binder = new GameCommunicationServiceBinder();
     private GameCommunicator gameCommunicator = null;
-    private String android_id;
     private String ipAddress;
     private Integer port;
     public GameCommunicationService() {
@@ -20,7 +19,6 @@ public class GameCommunicationService extends Service implements GameCommunicati
 
     @Override
     public void onCreate() {
-        setAndroidId(Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
     }
 
     @Override
@@ -75,14 +73,6 @@ public class GameCommunicationService extends Service implements GameCommunicati
     public void startGameCommunicator(){
         gameCommunicator = new GameCommunicator(this, ipAddress, port);
         gameCommunicator.start();
-    }
-
-    public void setAndroidId(String android_id){
-        this.android_id = android_id;
-    }
-
-    public String getAndroidId(){
-        return android_id;
     }
 
     public class GameCommunicationServiceBinder extends Binder {

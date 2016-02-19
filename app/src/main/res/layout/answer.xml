@@ -10,7 +10,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:weightSum="2"
-    tools:context="cnr.partlinkclient.QAActivity">
+    tools:context="cnr.partlinkclient.QAActivity"
+    android:background="#363636">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,12 +20,13 @@
         android:layout_weight="1">
 
         <info.hoang8f.widget.FButton
-            android:text="button1"
+            android:text="1"
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:textSize="50dp"
             fbutton:buttonColor="@color/fbutton_color_lightblue"
             fbutton:shadowColor="@color/fbutton_color_darkblue"
             fbutton:cornerRadius="30dp"
@@ -32,12 +34,13 @@
             fbutton:shadowHeight="20dp" />
 
         <info.hoang8f.widget.FButton
-            android:text="button2"
+            android:text="3"
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:textSize="50dp"
             fbutton:buttonColor="@color/fbutton_color_amethyst"
             fbutton:shadowColor="@color/fbutton_color_wisteria"
             fbutton:cornerRadius="30dp"
@@ -52,12 +55,13 @@
         android:layout_weight="1">
 
         <info.hoang8f.widget.FButton
-            android:text="button3"
+            android:text="4"
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:textSize="50dp"
             fbutton:buttonColor="@color/fbutton_color_turquoise"
             fbutton:shadowColor="@color/fbutton_color_green_sea"
             fbutton:cornerRadius="30dp"
@@ -65,12 +69,13 @@
             fbutton:shadowHeight="20dp" />
 
         <info.hoang8f.widget.FButton
-            android:text="button4"
+            android:text="2"
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:layout_weight="1"
+            android:textSize="50dp"
             fbutton:buttonColor="@color/fbutton_color_lightyellow"
             fbutton:shadowColor="@color/fbutton_color_darkyellow"
             fbutton:cornerRadius="30dp"

@@ -27,6 +27,7 @@ public class ResultActivity extends GameActivity {
             }
         });
     }
+    
     public void ready() {
         gcs.sendGameEvent("result_ready", new String[]{"Ready"});
     }

@@ -20,7 +20,6 @@ public class NumericActivity extends GameActivity {
     private TextView tv;
     private List<Button> btns;
     private Intent intent;
-    private boolean isResumeAfterPause = false;
     private String event;
     private int ans;
     private boolean canAnswer;
@@ -126,9 +125,6 @@ public class NumericActivity extends GameActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        changeToPauseFragment();
-        isResumeAfterPause = true;
-        gcs.sendGameEvent("game_pause", new String[]{});
     }
 
     @Override

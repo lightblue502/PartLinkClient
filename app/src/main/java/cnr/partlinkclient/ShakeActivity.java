@@ -25,7 +25,6 @@ public class ShakeActivity extends GameActivity {
     private Intent intent;
     private boolean isShake;
     private String event;
-    private boolean isResumeAfterPause = false;
 
     private int[] colorList = new int[]{Color.GREEN, Color.RED, Color.BLUE, Color.WHITE, Color.YELLOW, Color.CYAN};
     private int currColor = 0;
@@ -105,9 +104,6 @@ public class ShakeActivity extends GameActivity {
     protected void onPause() {
         mShaker.pause();
         super.onPause();
-        changeToPauseFragment();
-        isResumeAfterPause = true;
-        gcs.sendGameEvent("game_pause", new String[]{});
     }
 
     @Override

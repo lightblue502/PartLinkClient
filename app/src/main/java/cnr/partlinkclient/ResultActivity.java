@@ -16,6 +16,7 @@ public class ResultActivity extends GameActivity {
         super.initialServiceBinding();
         setContentView(R.layout.activity_result);
 
+        super.container = R.id.fragment_container;
         intent = getIntent();
         event = intent.getStringExtra("result");
         onGameEvent(event, null);
@@ -27,7 +28,7 @@ public class ResultActivity extends GameActivity {
             }
         });
     }
-    
+
     public void ready() {
         gcs.sendGameEvent("result_ready", new String[]{"Ready"});
     }

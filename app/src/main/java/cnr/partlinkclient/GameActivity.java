@@ -20,7 +20,9 @@ import android.util.Log;
 public abstract class GameActivity extends Activity {
     protected PauseFragment fragment;
     protected int container;
+    protected boolean isEndActivity = false;
     protected boolean isBackPress = false;
+    protected boolean isResumeAfterPause = false;
     protected GameCommunicationService gcs;
     protected boolean bound = false;
     private ServiceConnection serviceConnection;
@@ -63,23 +65,33 @@ public abstract class GameActivity extends Activity {
 
     public void onGameEvent(String event, String[] params){
         if (event.equals("shake-start")) {
+            isBackPress = false;
+            isEndActivity = true;
             Intent intent = new Intent(this, ShakeActivity.class);
             intent.putExtra("shake_game", "Ready");
             startActivity(intent);
         }else if(event.equals("numeric_start")){
+            isBackPress = false;
+            isEndActivity = true;
             Intent intent = new Intent(this, NumericActivity.class);
             intent.putExtra("numeric_game", "Ready");
             startActivity(intent);
         }else if(event.equals("qa_start")){
+            isBackPress = false;
+            isEndActivity = true;
             Intent intent = new Intent(this, QAActivity.class);
             intent.putExtra("qa_game", "Ready");
             startActivity(intent);
         }else if(event.equals("result_start")){
+            isBackPress = false;
+            isEndActivity = true;
             Intent intent = new Intent(this, ResultActivity.class);
             intent.putExtra("result", "Ready");
             startActivity(intent);
         }
         else if(event.equals("end_start")) {
+            isBackPress = false;
+            isEndActivity = true;
             Intent intent = new Intent(this, EndActivity.class);
             intent.putExtra("end", "Ready");
             startActivity(intent);
@@ -111,14 +123,19 @@ public abstract class GameActivity extends Activity {
         super.onPause();
         Log.d(Utils.TAG, "onPause Game Activity");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+        if(!isEndActivity) {
+            changeToPauseFragment();
+            isResumeAfterPause = true;
+            gcs.sendGameEvent("game_pause", new String[]{});
+        }
     }
 
     protected void onServiceConnected() {}
 
     @Override
     public void onBackPressed() {
-        Log.d(Utils.TAG, "Game is pause");
         isBackPress = true;
+        Log.d(Utils.TAG, "====================== onBackPress ======================");
         changeToPauseFragment();
         gcs.sendGameEvent("game_pause", new String[]{});
 
@@ -128,6 +145,7 @@ public abstract class GameActivity extends Activity {
         try {
             Bundle bundle = new Bundle();
             fragment = PauseFragment.newInstance(bundle);
+            Log.d(Utils.TAG, "create new Instance");
         }catch (Exception e){
             Log.d(Utils.TAG, e.toString());
         }

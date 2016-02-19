@@ -24,7 +24,6 @@ public class QAActivity extends GameActivity {
     private List<Button> btns;
     private Intent intent;
     private String event;
-    private boolean isResumeAfterPause = false;
     private boolean isAsk = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class QAActivity extends GameActivity {
             Log.d("QA", "gen");
         }
 
-        super.container = R.id.pause_container;
+        super.container = R.id.fragment_container;
         intent = getIntent();
         event = intent.getStringExtra("qa_game");
 
@@ -222,17 +221,17 @@ public class QAActivity extends GameActivity {
 
         }
     }
+
     @Override
     protected void onPause() {
         super.onPause();
-        isResumeAfterPause = true;
-        changeToPauseFragment();
-        gcs.sendGameEvent("game_pause", new String[]{});
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+
     }
 
     @Override

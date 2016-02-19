@@ -2,6 +2,7 @@ package cnr.partlinkclient;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -42,5 +43,15 @@ public class ResultActivity extends GameActivity {
     @Override
     protected void onServiceConnected() {
         ready();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isResumeAfterPause) {
+            isResumeAfterPause = false;
+            super.initialServiceBinding();
+            gcs.sendGameEvent("game_resume", new String[]{});
+        }
+        Log.d(Utils.TAG, "IN onResume");
     }
 }

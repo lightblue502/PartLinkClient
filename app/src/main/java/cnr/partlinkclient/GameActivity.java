@@ -110,6 +110,7 @@ public abstract class GameActivity extends Activity {
             isBackPress = false;
             onSuicidePauseFragment();
             ready();
+            fragment = null;
         }
     }
     public abstract void ready();
@@ -136,9 +137,10 @@ public abstract class GameActivity extends Activity {
     public void onBackPressed() {
         isBackPress = true;
         Log.d(Utils.TAG, "====================== onBackPress ======================");
-        changeToPauseFragment();
-        gcs.sendGameEvent("game_pause", new String[]{});
-
+        if(fragment == null) {
+            changeToPauseFragment();
+            gcs.sendGameEvent("game_pause", new String[]{});
+        }
     }
 
     protected void changeToPauseFragment(){

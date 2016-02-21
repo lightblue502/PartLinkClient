@@ -95,7 +95,14 @@ public abstract class GameActivity extends Activity {
             Intent intent = new Intent(this, EndActivity.class);
             intent.putExtra("end", "Ready");
             startActivity(intent);
-        }else if(event.equals("game_pause")){
+        }else if(event.equals("blank_start")) {
+            isBackPress = false;
+            isEndActivity = true;
+            Intent intent = new Intent(this, BlankActivity.class);
+            intent.putExtra("blank", "Ready");
+            startActivity(intent);
+        }
+        else if(event.equals("game_pause")){
             if(!isBackPress) {
                 changeToPauseFragment();
             }

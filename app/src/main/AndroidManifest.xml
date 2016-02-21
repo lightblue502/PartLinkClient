@@ -42,7 +42,12 @@
         <activity android:name=".ResultActivity"
             android:screenOrientation="portrait"
             ></activity>
-        <activity android:name=".EndActivity"></activity>
+        <activity android:name=".BlankActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity android:name=".EndActivity"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>

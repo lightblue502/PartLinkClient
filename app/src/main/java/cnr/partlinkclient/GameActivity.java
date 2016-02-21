@@ -124,7 +124,7 @@ public abstract class GameActivity extends Activity {
         super.onPause();
         Log.d(Utils.TAG, "onPause Game Activity");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
-        if(!isEndActivity) {
+        if(!isEndActivity && fragment == null) {
             changeToPauseFragment();
             isResumeAfterPause = true;
             gcs.sendGameEvent("game_pause", new String[]{});
@@ -136,7 +136,6 @@ public abstract class GameActivity extends Activity {
     @Override
     public void onBackPressed() {
         isBackPress = true;
-        Log.d(Utils.TAG, "====================== onBackPress ======================");
         if(fragment == null) {
             changeToPauseFragment();
             gcs.sendGameEvent("game_pause", new String[]{});

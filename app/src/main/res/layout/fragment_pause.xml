@@ -5,28 +5,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0000000"
+    android:background="#7f7f7f7f"
     android:orientation="vertical"
     android:weightSum="6"
     tools:context="cnr.partlinkclient.PauseFragment">
 
 
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
+
         android:layout_weight="1">
 
-        <TextView
-            android:text="GAME PAUSE"
-            android:textColor="@color/primary_material_light"
-            android:gravity="center"
-            android:textSize="50dp"
+        <!--<TextView-->
+            <!--android:text="GAME PAUSE"-->
+            <!--android:textColor="@color/primary_material_light"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="50dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:src="@drawable/pause"
+            android:padding="40dp"
+            android:layout_above="@+id/linearLayout3" />
 
 
-    </RelativeLayout>
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,14 +44,18 @@
             android:text="RESUME"
             android:id="@+id/resumeBtn"
             android:onClick="resumeToGame"
+            android:textColor="@color/primary_text_default_material_dark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            fbutton:buttonColor="@color/fbutton_color_peter_river"
-            fbutton:shadowColor="@color/fbutton_color_belize_hole"
-            fbutton:cornerRadius="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            fbutton:buttonColor="#000"
+            fbutton:shadowColor="#888"
+            fbutton:cornerRadius="15dp"
             fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="20dp"
+            fbutton:shadowHeight="10dp"
             android:textSize="50dp"
             />
     </RelativeLayout>

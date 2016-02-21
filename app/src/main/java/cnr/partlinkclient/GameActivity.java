@@ -108,9 +108,9 @@ public abstract class GameActivity extends Activity {
             }
         }else if(event.equals("game_resume")){
             isBackPress = false;
+            fragment = null;
             onSuicidePauseFragment();
             ready();
-            fragment = null;
         }
     }
     public abstract void ready();

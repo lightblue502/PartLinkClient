@@ -57,10 +57,10 @@ public class GameCommunicator extends Thread {
                         String initial_line = reader.readLine(); //expect ID=x
 
                         clientId = Integer.parseInt(initial_line.substring(3));
-                        if(clientId != -1){
-                            Log.d(Utils.TAG, "PROCESS GAME RESUME WHEN RECONNECT");
-                            writer.println("game_resume");
-                        }
+//                        if(clientId != -1){
+//                            Log.d(Utils.TAG, "PROCESS GAME RESUME WHEN RECONNECT");
+//                            writer.println("game_resume");
+//                        }
                         Log.d(Utils.TAG, "An ID has been assigned => " + clientId);
                     }
 

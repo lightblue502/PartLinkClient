@@ -30,5 +30,5 @@
     <color name="fbutton_color_darkyellow">#FFC400</color>
     <color name="fbutton_color_lightpink">#F48FB1</color>
     <color name="fbutton_color_darkpink">#C2185B</color>
-
+    <color name="black">#000</color>
 </resources>

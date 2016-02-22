@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.WindowManager;
 
 /**
  * Created by suthon on 12/23/2015.
@@ -122,6 +123,18 @@ public abstract class GameActivity extends Activity {
         }
     }
     public abstract void ready();
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 
     @Override
     protected void onResume(){

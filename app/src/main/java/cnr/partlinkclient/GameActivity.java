@@ -103,6 +103,7 @@ public abstract class GameActivity extends Activity {
             startActivity(intent);
         }
         else if(event.equals("game_pause")){
+            Log.d(Utils.TAG,"game Pause");
             if(!isBackPress) {
                 changeToPauseFragment();
             }

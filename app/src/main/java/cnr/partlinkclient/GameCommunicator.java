@@ -46,7 +46,6 @@ public class GameCommunicator extends Thread {
             Log.d(Utils.TAG, "In GAME-COME || IP :"+ipAddress + " | "+ port);
             while (true) {
                 try {
-
                     gameSocket = new Socket(ipAddress, port);
                     reader = new BufferedReader(new InputStreamReader(gameSocket.getInputStream()));
                     writer = new PrintWriter(gameSocket.getOutputStream());
@@ -58,6 +57,10 @@ public class GameCommunicator extends Thread {
                         String initial_line = reader.readLine(); //expect ID=x
 
                         clientId = Integer.parseInt(initial_line.substring(3));
+                        if(clientId != -1){
+                            Log.d(Utils.TAG, "PROCESS GAME RESUME WHEN RECONNECT");
+                            writer.println("game_resume");
+                        }
                         Log.d(Utils.TAG, "An ID has been assigned => " + clientId);
                     }
 

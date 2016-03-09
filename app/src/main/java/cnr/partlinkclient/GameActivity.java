@@ -77,6 +77,12 @@ public abstract class GameActivity extends Activity {
             Intent intent = new Intent(this, NumericActivity.class);
             intent.putExtra("numeric_game", "Ready");
             startActivity(intent);
+        }else if(event.equals("ball_start")){
+            isBackPress = false;
+            isEndActivity = true;
+            Intent intent = new Intent(this, BallActivity.class);
+            intent.putExtra("ball_game", "Ready");
+            startActivity(intent);
         }else if(event.equals("qa_start")){
             isBackPress = false;
             isEndActivity = true;

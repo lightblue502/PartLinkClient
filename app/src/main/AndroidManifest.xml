@@ -48,6 +48,9 @@
         <activity android:name=".EndActivity"
             android:screenOrientation="portrait"
             ></activity>
+        <activity android:name=".BallActivity"
+            android:screenOrientation="landscape"
+            ></activity>
     </application>
 
 </manifest>

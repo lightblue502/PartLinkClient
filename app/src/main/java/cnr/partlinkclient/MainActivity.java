@@ -100,11 +100,11 @@ public class MainActivity extends AppCompatActivity {
                 Toast toast;
                 String text;
                 if(!isOnline(contents)){
-                    text = "Connection failed";
+                    text = "Connection Failed";
                 }else if (contents.length() < 7) {
                     text = "Wrong Room..";
                 } else {
-                    text = "Room "+contents;
+                    text = "Welcome";
                     process(contents);
                 }
                 toast = Toast.makeText(this, text, Toast.LENGTH_LONG);

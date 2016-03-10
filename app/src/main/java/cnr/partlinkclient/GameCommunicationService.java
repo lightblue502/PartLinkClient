@@ -86,6 +86,11 @@ public class GameCommunicationService extends Service implements GameCommunicati
         }
     }
 
+    //use didn't take a picture
+    public void uploadPicture(){
+        pictureUploader.sendData(new byte[1]);
+    }
+
     public void uploadPicture(byte[] picture){
         pictureUploader.sendData(picture);
     }

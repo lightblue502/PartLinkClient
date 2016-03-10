@@ -123,11 +123,16 @@ public class RegisterActivity extends GameActivity {
     }
 
     public void preparedPicture(){
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        Log.d(Utils.TAG, "bytearray length: " + byteArray.length);
-        gcs.uploadPicture(compressByteArray(byteArray));
+        if(imageBitmap != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            Log.d(Utils.TAG, "bytearray length: " + byteArray.length);
+            gcs.uploadPicture(compressByteArray(byteArray));
+        }
+        // use didn't take a picture.
+        gcs.uploadPicture();
+
     }
 
     public byte[] compressByteArray(byte[] data){

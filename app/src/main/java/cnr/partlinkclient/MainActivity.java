@@ -98,17 +98,35 @@ public class MainActivity extends AppCompatActivity {
                 //checkbit 0.0.0.0
 
                 Toast toast;
-                if (contents.length() > 7) {
-                    toast = Toast.makeText(this, "Room "+contents, Toast.LENGTH_LONG);
-                    process(contents);
+                String text;
+                if(!isOnline(contents)){
+                    text = "Connection failed";
+                }else if (contents.length() < 7) {
+                    text = "Wrong Room..";
                 } else {
-                    toast = Toast.makeText(this, "Wrong Room..", Toast.LENGTH_LONG);
+                    text = "Room "+contents;
+                    process(contents);
                 }
+                toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
                 toast.show();
 
             }
         }
     }
+
+    public Boolean isOnline(String ipAdrress) {
+        try {
+            Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 "+ipAdrress);
+            int returnVal = p1.waitFor();
+            boolean reachable = (returnVal==0);
+            return reachable;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public void process(String ipAddress){
 //        address = (EditText)findViewById(R.id.addressText);
 //        String ipAddress = address.getText().toString();

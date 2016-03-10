@@ -37,16 +37,37 @@
         android:layout_alignLeft="@+id/linearLayout"
         android:layout_alignStart="@+id/linearLayout">
 
-        <EditText
+        <!--<EditText-->
+            <!--android:id="@+id/addressText"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="172.30."-->
+            <!--android:textSize="30dp" /> -->
+
+        <!--<info.hoang8f.widget.FButton-->
+            <!--android:id="@+id/loginBtn"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="73dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:textColor="@color/fbutton_color_darkpink"-->
+            <!--fbutton:buttonColor="@color/fbutton_color_lightpink"-->
+            <!--fbutton:shadowColor="@color/fbutton_color_darkpink"-->
+            <!--fbutton:cornerRadius="15dp"-->
+            <!--fbutton:shadowEnabled="true"-->
+            <!--fbutton:shadowHeight="10dp"-->
+            <!--android:text="LOGIN"-->
+            <!--android:textSize="40dp" />-->
+        <TextView
             android:id="@+id/addressText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="172.30."
+            android:text="ENTER QR-CODE"
+            android:textAlignment="center"
+            android:layout_marginBottom="10dp"
             android:textSize="30dp" />
 
-
         <info.hoang8f.widget.FButton
-            android:id="@+id/loginBtn"
+            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="73dp"
             android:layout_gravity="center"
@@ -56,7 +77,8 @@
             fbutton:cornerRadius="15dp"
             fbutton:shadowEnabled="true"
             fbutton:shadowHeight="10dp"
-            android:text="LOGIN"
+            android:text="SCAN"
+            android:onClick="scanQR"
             android:textSize="40dp" />
 
     </LinearLayout>

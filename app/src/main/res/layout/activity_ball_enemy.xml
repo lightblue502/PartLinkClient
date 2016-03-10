@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_material_light"
+    >
+
+    <info.hoang8f.widget.FButton
+        android:text="BOMB!!"
+        android:id="@+id/bombBtn"
+        android:layout_width="350dp"
+        android:layout_height="500dp"
+        android:layout_margin="3dp"
+        android:layout_weight="1"
+        fbutton:buttonColor="@color/fbutton_color_concrete"
+        fbutton:shadowColor="@color/fbutton_color_asbestos"
+        fbutton:cornerRadius="200dp"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="20dp"
+        android:textSize="50dp"
+        />
+</RelativeLayout>

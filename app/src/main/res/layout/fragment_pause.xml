@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
 
-        android:layout_weight="1">
+        android:layout_weight="2">
 
         <!--<TextView-->
             <!--android:text="GAME PAUSE"-->
@@ -30,15 +30,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/pause"
-            android:padding="40dp"
+            android:padding="80dp"
             android:layout_above="@+id/linearLayout3" />
 
 
     </LinearLayout>
     <RelativeLayout
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5">
+        android:layout_weight="4">
 
         <info.hoang8f.widget.FButton
             android:text="RESUME"

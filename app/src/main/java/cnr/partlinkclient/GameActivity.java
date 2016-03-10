@@ -20,6 +20,7 @@ import android.view.WindowManager;
  */
 public abstract class GameActivity extends Activity {
     protected PauseFragment fragment;
+    protected boolean openCamera = false;
     protected int container;
     protected boolean isEndActivity = false;
     protected boolean isBackPress = false;
@@ -66,6 +67,7 @@ public abstract class GameActivity extends Activity {
 
     public void onGameEvent(String event, String[] params){
         if (event.equals("shake-start")) {
+            Log.d(Utils.TAG, "GameActivity Shake-Start");
             isBackPress = false;
             isEndActivity = true;
             Intent intent = new Intent(this, ShakeActivity.class);
@@ -139,13 +141,16 @@ public abstract class GameActivity extends Activity {
     @Override
     protected void onResume(){
         super.onResume();
+        Log.d(Utils.TAG, "onResume Game Activity");
     }
     @Override
     protected void onPause() {
         super.onPause();
         Log.d(Utils.TAG, "onPause Game Activity");
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
-        if(!isEndActivity && fragment == null) {
+        if(!openCamera) {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver);
+        }
+        if(!openCamera && !isEndActivity && fragment == null) {
             changeToPauseFragment();
             isResumeAfterPause = true;
             gcs.sendGameEvent("game_pause", new String[]{});

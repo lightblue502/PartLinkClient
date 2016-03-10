@@ -22,44 +22,28 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
-        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
+        android:gravity="center"
         android:orientation="vertical"
+        android:id="@+id/linearLayout1"
         android:layout_below="@+id/linearLayout"
         android:layout_alignLeft="@+id/linearLayout"
         android:layout_alignStart="@+id/linearLayout">
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/nameEditText"
-            android:layout_alignParentTop="true"
-            android:textSize="30dp"
-            />
-
-
-        <info.hoang8f.widget.FButton
-            android:text="SEND"
-            android:id="@+id/registerBtn"
-            android:layout_width="match_parent"
-            android:layout_height="73dp"
-            android:layout_gravity="center"
-            android:textColor="@color/background_material_dark"
-            fbutton:buttonColor="@color/fbutton_color_concrete"
-            fbutton:shadowColor="@color/fbutton_color_asbestos"
-            fbutton:cornerRadius="15dp"
-            fbutton:shadowEnabled="true"
-            fbutton:shadowHeight="10dp"
-            android:textSize="40dp" />
+        <ImageView
+            android:id="@+id/mImageView"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/player_logo" />
 
     </LinearLayout>
+
 
     <ImageView
         android:layout_width="match_parent"
@@ -82,5 +66,41 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/imageView2" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/nameEditText"
+            android:layout_alignParentTop="true"
+            android:textSize="30dp"
+            />
+
+
+        <info.hoang8f.widget.FButton
+            android:text="SEND"
+            android:id="@+id/registerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_gravity="center"
+            android:textColor="@color/background_material_dark"
+            fbutton:buttonColor="@color/fbutton_color_concrete"
+            fbutton:shadowColor="@color/fbutton_color_asbestos"
+            fbutton:cornerRadius="15dp"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="10dp"
+            android:textSize="40dp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

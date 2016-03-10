@@ -1,67 +1,66 @@
 package cnr.partlinkclient;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.provider.Settings;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.zip.Deflater;
 
 /**
- * Created by suthon on 12/23/2015.
+ * Created by lucksikalosuvalna on 3/7/16 AD.
  */
-public class GameCommunicator extends Thread {
+public class PictureUploader extends Thread {
     private GameCommunicationListener listener;
     private Socket gameSocket = null;
     private BufferedReader reader;
     private PrintWriter writer;
+    private DataOutputStream dos;
     private String ipAddress = null;
     private Integer port = null;
     private int clientId;
 
-    public GameCommunicator(GameCommunicationListener listener, String ipAddress, int port){
+    public PictureUploader(GameCommunicationListener listener, String ipAddress, Integer port, int clientId) {
         this.listener = listener;
         this.ipAddress = ipAddress;
         this.port = port;
-        clientId = -1;
+        this.clientId = clientId;
     }
-
     public void processData(String line){
         listener.onIncomingEvent(line);
     }
 
-    public void sendData(String line){
-        writer.println(line);
-        Log.d(Utils.TAG, "sending " + line);
-        writer.flush();
+    public void sendData(byte[] compress_data){
+        try {
+            Log.d(Utils.TAG, "sending :" + compress_data);
+            dos.writeInt(compress_data.length);
+            dos.write(compress_data);
+//            writer.println(compress_data);
+//            writer.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void run(){
-        Log.d(Utils.TAG," IP: " + ipAddress + " Port: " + port);
+        Log.d(Utils.TAG, " IP: " + ipAddress + " Port: " + port);
         if(ipAddress != null && port != null) {
-            Log.d(Utils.TAG, "In GAME-COME || IP :"+ipAddress + " | "+ port);
+            Log.d(Utils.TAG, "In Picture-Uploader || IP :"+ipAddress + " | "+ port);
             while (true) {
                 try {
                     gameSocket = new Socket(ipAddress, port);
                     reader = new BufferedReader(new InputStreamReader(gameSocket.getInputStream()));
                     writer = new PrintWriter(gameSocket.getOutputStream());
+                    dos = new DataOutputStream(gameSocket.getOutputStream());
                     Log.d(Utils.TAG, reader.toString());
-                    if (gameSocket != null && reader != null) {
-                        Log.d(Utils.TAG, "gameSocket" + gameSocket.getLocalSocketAddress().toString());
+                    if(gameSocket != null && reader != null){
                         writer.println("ID=" + clientId);
                         writer.flush();
-                        String initial_line = reader.readLine(); //expect ID=x
-
-                        clientId = Integer.parseInt(initial_line.substring(3));
-
-                        // when user connect to server create socket for PictureUploader.
-                        listener.createPictureUploader(clientId);
-
-                        Log.d(Utils.TAG, "An ID has been assigned => " + clientId);
                     }
 
                     String line = null;
@@ -75,7 +74,7 @@ public class GameCommunicator extends Thread {
                 }
             }
         }else{
-                Log.d(Utils.TAG, "Can't receive ipAddress");
+            Log.d(Utils.TAG, "Can't receive ipAddress");
         }
 
     }

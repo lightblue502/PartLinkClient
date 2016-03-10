@@ -11,6 +11,7 @@ import android.util.Log;
 public class GameCommunicationService extends Service implements GameCommunicationListener {
     private final IBinder binder = new GameCommunicationServiceBinder();
     private GameCommunicator gameCommunicator = null;
+    private PictureUploader pictureUploader = null;
     private String ipAddress;
     private Integer port;
     public GameCommunicationService() {
@@ -40,6 +41,7 @@ public class GameCommunicationService extends Service implements GameCommunicati
         }
 
     }
+
     public void sendGameEvent(String event, String[] params){
         StringBuilder sb = new StringBuilder(event);
         sb.append('|');
@@ -73,6 +75,19 @@ public class GameCommunicationService extends Service implements GameCommunicati
     public void startGameCommunicator(){
         gameCommunicator = new GameCommunicator(this, ipAddress, port);
         gameCommunicator.start();
+    }
+
+    @Override
+    public void createPictureUploader(int clientId){
+        Log.d(Utils.TAG, "Create PictureUploader");
+        if(pictureUploader == null) {
+            pictureUploader = new PictureUploader(this, ipAddress, port + 1, clientId);
+            pictureUploader.start();
+        }
+    }
+
+    public void uploadPicture(byte[] picture){
+        pictureUploader.sendData(picture);
     }
 
     public class GameCommunicationServiceBinder extends Binder {

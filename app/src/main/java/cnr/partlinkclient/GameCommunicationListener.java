@@ -5,5 +5,5 @@ package cnr.partlinkclient;
  */
 public interface GameCommunicationListener {
     public void onIncomingEvent(String event);
-
+    public void createPictureUploader(int clientId);
 }

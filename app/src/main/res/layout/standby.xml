@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
         android:text="STAND BY"
         android:gravity="center"
         android:textSize="60dp"

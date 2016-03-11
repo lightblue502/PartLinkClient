@@ -2,28 +2,60 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:background="#363636"
-    android:weightSum="1">
+    >
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="295dp"
-        android:text="\?"
-        android:textSize="230dp"
-        android:textColor="#f30009"
-        android:id="@+id/textView3"
-        android:gravity="center" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="\nแม่นำ้เจ้าพระยา มีกี่่สาย?"
-        android:id="@+id/textView"
-        android:textSize="50dp"
-        android:textAlignment="center"
-        android:textColor="@color/primary_text_default_material_dark"
-        android:layout_below="@+id/textView3" />
+        android:orientation="vertical"
+        android:weightSum="4"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="\?"
+            android:textSize="180dp"
+            android:layout_weight="2"
+            android:textColor="#f30009"
+            android:id="@+id/questionIcon"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="\nแม่นำ้เจ้าพระยา มีกี่่สาย?"
+            android:id="@+id/questionText"
+            android:textSize="50dp"
+            android:textAlignment="center"
+            android:textColor="@color/primary_text_default_material_dark"
+            />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <info.hoang8f.widget.FButton
+            android:text="READY !!"
+            android:id="@+id/readyBtn"
+            android:layout_height="match_parent"
+            android:layout_width="350dp"
+            android:textColor="@color/primary_material_light"
+            fbutton:buttonColor="@color/fbutton_color_pomegranate"
+            fbutton:shadowColor="@color/fbutton_color_alizarin"
+            fbutton:cornerRadius="200dp"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="10dp"
+            android:textSize="60dp"
+            />
+    </LinearLayout>
+
+
 
 </RelativeLayout>

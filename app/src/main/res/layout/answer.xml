@@ -89,4 +89,13 @@
 
     </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:id="@+id/listenTv"
+        android:textColor="@color/primary_text_default_material_dark"
+        android:gravity="center"
+        android:text="WAITING TO ASKER READY.."
+        android:textStyle="bold"
+        android:textSize="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

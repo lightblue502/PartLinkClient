@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="4"
+        android:weightSum="10"
         >
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="\?"
             android:textSize="180dp"
-            android:layout_weight="2"
+            android:layout_weight="4"
             android:textColor="#f30009"
             android:id="@+id/questionIcon"
             android:gravity="center" />
@@ -25,11 +25,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="6"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="\nแม่นำ้เจ้าพระยา มีกี่่สาย?"
             android:id="@+id/questionText"
-            android:textSize="50dp"
+            android:textSize="45dp"
             android:textAlignment="center"
             android:textColor="@color/primary_text_default_material_dark"
             />
@@ -55,6 +55,7 @@
             android:textSize="60dp"
             />
     </LinearLayout>
+
 
 
 

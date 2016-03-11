@@ -25,6 +25,7 @@ import java.util.zip.Deflater;
 public class RegisterActivity extends GameActivity {
     private EditText nameEditText;
     private ImageView mImageView;
+    private Button registerBtn;
     private Bitmap imageBitmap;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -34,6 +35,7 @@ public class RegisterActivity extends GameActivity {
         setContentView(R.layout.activity_register);
         initialServiceBinding();
         nameEditText = (EditText)findViewById(R.id.nameEditText);
+
         mImageView = (ImageView)findViewById(R.id.mImageView);
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,13 +43,18 @@ public class RegisterActivity extends GameActivity {
                 dispatchTakePictureIntent();
             }
         });
-        ((Button)findViewById(R.id.registerBtn)).setOnClickListener(new View.OnClickListener() {
+        registerBtn = ((Button)findViewById(R.id.registerBtn));
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(gcs.isConnectedToServer())
+                if (gcs.isConnectedToServer())
                     register();
             }
         });
+
+        nameEditText.setVisibility(View.INVISIBLE);
+        mImageView.setVisibility(View.INVISIBLE);
+        registerBtn.setVisibility(View.INVISIBLE);
 
     }
 
@@ -104,7 +111,11 @@ public class RegisterActivity extends GameActivity {
         super.onGameEvent(event, params);
         Log.d(Utils.TAG, "processing game event (MAIN): " + event);
         if(event.equals("register_ok")){
-            ((Button)findViewById(R.id.registerBtn)).setEnabled(false);
+            registerBtn.setEnabled(false);
+        }else if(event.equals("uiServerReady")){
+            nameEditText.setVisibility(View.VISIBLE);
+            mImageView.setVisibility(View.VISIBLE);
+            registerBtn.setVisibility(View.VISIBLE);
         }
 
         if(event.equals("your_team")){

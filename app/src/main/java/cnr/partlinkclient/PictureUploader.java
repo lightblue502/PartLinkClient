@@ -40,8 +40,6 @@ public class PictureUploader extends Thread {
             Log.d(Utils.TAG, "sending :" + compress_data);
             dos.writeInt(compress_data.length);
             dos.write(compress_data);
-//            writer.println(compress_data);
-//            writer.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }

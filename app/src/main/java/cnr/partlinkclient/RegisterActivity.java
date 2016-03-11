@@ -119,7 +119,7 @@ public class RegisterActivity extends GameActivity {
 
     public void register() {
         preparedPicture();
-        gcs.sendGameEvent("register", new String[]{nameEditText.getText().toString()});
+        gcs.sendGameEvent("register", new String[]{nameEditText.getText().toString(), imageBitmap == null ? "empty" : "picture"});
     }
 
     public void preparedPicture(){
@@ -130,9 +130,6 @@ public class RegisterActivity extends GameActivity {
             Log.d(Utils.TAG, "bytearray length: " + byteArray.length);
             gcs.uploadPicture(compressByteArray(byteArray));
         }
-        // use didn't take a picture.
-        gcs.uploadPicture();
-
     }
 
     public byte[] compressByteArray(byte[] data){

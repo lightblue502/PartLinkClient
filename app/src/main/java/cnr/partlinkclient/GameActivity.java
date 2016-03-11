@@ -13,7 +13,15 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.UnknownHostException;
 
 /**
  * Created by suthon on 12/23/2015.
@@ -27,6 +35,7 @@ public abstract class GameActivity extends Activity {
     protected boolean isResumeAfterPause = false;
     protected GameCommunicationService gcs;
     protected boolean bound = false;
+    private String ipAddress;
     private ServiceConnection serviceConnection;
     private BroadcastReceiver broadcastReceiver;
 
@@ -47,7 +56,8 @@ public abstract class GameActivity extends Activity {
         };
 
         Intent intent = new Intent(this, GameCommunicationService.class);
-        intent.putExtra("ipAddress", getIntent().getStringExtra("ipAddress"));
+        ipAddress = getIntent().getStringExtra("ipAddress");
+        intent.putExtra("ipAddress", ipAddress);
         intent.putExtra("port", getIntent().getIntExtra("port", 0));
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
 
@@ -131,7 +141,6 @@ public abstract class GameActivity extends Activity {
         }
     }
     public abstract void ready();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

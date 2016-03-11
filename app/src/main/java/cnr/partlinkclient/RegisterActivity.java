@@ -44,7 +44,8 @@ public class RegisterActivity extends GameActivity {
         ((Button)findViewById(R.id.registerBtn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                register();
+                if(gcs.isConnectedToServer())
+                    register();
             }
         });
 

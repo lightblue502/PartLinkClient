@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class GameCommunicationService extends Service implements GameCommunicationListener {
     private final IBinder binder = new GameCommunicationServiceBinder();
@@ -21,7 +22,26 @@ public class GameCommunicationService extends Service implements GameCommunicati
     @Override
     public void onCreate() {
     }
+    public void makeToast(String text){
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+        toast.show();
+    }
 
+    public boolean isConnectedToServer() {
+        try {
+            Process p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 "+ipAddress);
+            Log.d(Utils.TAG,"IP :"+ipAddress);
+            int returnVal = p1.waitFor();
+            boolean reachable = (returnVal==0);
+            if(!reachable)
+                makeToast("Connection Failed");
+            return reachable;
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
     @Override
     public void onIncomingEvent(String line) {
         if(line != null){

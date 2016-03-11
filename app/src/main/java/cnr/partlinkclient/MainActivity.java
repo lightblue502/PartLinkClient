@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 String text;
                 if(!isOnline(contents)){
                     text = "Connection Failed";
-                }else if (contents.length() < 7) {
+                }else if (contents.length() <= 7) {
                     text = "Wrong Room..";
                 } else {
                     text = "Welcome";

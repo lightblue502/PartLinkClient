@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primary_material_light"
+    android:gravity="center"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2"
+        >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="PRESS BUTTON TO READY"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        />
+    <info.hoang8f.widget.FButton
+        android:text="Ready"
+        android:id="@+id/readyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:layout_margin="3dp"
+        android:layout_weight="1"
+        fbutton:buttonColor="@color/accent_material_light"
+        fbutton:shadowColor="@color/fbutton_color_lightblue"
+        android:textColor="@color/primary_material_light"
+        fbutton:cornerRadius="50dp"
+        fbutton:shadowEnabled="true"
+        fbutton:shadowHeight="20dp"
+        android:textSize="60dp"
+        />
+    </LinearLayout>
+</RelativeLayout>

@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -16,12 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import org.w3c.dom.Text;
 
 public class BallActivity extends GameActivity{
     private Intent intent;
@@ -36,10 +32,10 @@ public class BallActivity extends GameActivity{
         intent = getIntent();
         event = intent.getStringExtra("ball_game");
 
-//        if (savedInstanceState == null) {
-//            StandbyFragment fragment = new StandbyFragment();
-//            getFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
-//        }
+        if (savedInstanceState == null) {
+            StandbyFragment fragment = new StandbyFragment();
+            getFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
+        }
 
         super.container = R.id.fragment_container;
         intent = getIntent();
@@ -82,13 +78,25 @@ public class BallActivity extends GameActivity{
        }else if(event.equals("player_start")){
            changeToPlayerFragment(params);
        }
+//       else if(event.equals("ball_newRound")){
+//           Log.d(Utils.TAG,"newRound");
+//           onStandByFragment();
+//       }
+    }
+
+    private void onStandByFragment() {
+        StandbyFragment fragment = new StandbyFragment();
+        fragment.setGameCommunicationService(gcs);
+        fragment.setBallActivity(this);
+        replaceFragment(fragment);
     }
 
     @Override
     public void ready() {
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(500);
-        gcs.sendGameEvent("ball_ready", new String[]{"Ready"});
+        onStandByFragment();
+//        gcs.sendGameEvent("ball_ready", new String[]{"Ready"});
     }
 
     @Override
@@ -168,7 +176,7 @@ public class BallActivity extends GameActivity{
         //sensor
         private SensorManager sensorManager;
         private Sensor accelerometer;
-        private float currentDeltaY = 0;
+        private int intDeltaY = 0;
         private float deltaX = 0;
         private float deltaY = 0;
         private float deltaZ = 0;
@@ -243,12 +251,9 @@ public class BallActivity extends GameActivity{
                 deltaY = -10;
             }
 
-            if(currentDeltaY == 0){
-                currentDeltaY = deltaY;
-            }
-            if(deltaY > currentDeltaY+0.5 || deltaY < currentDeltaY-0.5){
-                gcs.sendGameEvent("moveEvent", new String[]{Float.toString(deltaY)});
-                currentDeltaY = deltaY;
+            if(intDeltaY != Math.round(deltaY)){
+                intDeltaY = Math.round(deltaY);
+                gcs.sendGameEvent("moveEvent", new String[]{Integer.toString(intDeltaY)});
             }
         }
 
@@ -273,5 +278,46 @@ public class BallActivity extends GameActivity{
         }
 
     }
+    public static class StandbyFragment extends Fragment {
+        public GameCommunicationService gcs;
+        public String[] params;
+        public BallActivity ballActivity;
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            // Inflate the layout for this fragment
+            return inflater.inflate(R.layout.activity_ball_standby, container, false);
 
+        }
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            //Event
+            Log.d(Utils.TAG, gcs+"");
+            final Button readyBtn = (Button)view.findViewById(R.id.readyBtn);
+            readyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d(Utils.TAG, "readyEvent");
+                    if( gcs.isConnectedToServer()){
+                        gcs.sendGameEvent("ball_ready", new String[]{"Ready"});
+                        readyBtn.setEnabled(false);
+                    }
+                }
+            });
+
+//            generateButton();
+        }
+        public void setGameCommunicationService(GameCommunicationService gcs){
+            this.gcs = gcs;
+        }
+        public void setParams(String[] params){
+            this.params = params;
+        }
+        public void setBallActivity(BallActivity ballActivity){
+            this.ballActivity = ballActivity;
+        }
+
+
+    }
 }

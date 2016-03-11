@@ -4,20 +4,39 @@
     xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:background="@color/primary_material_light"
     android:gravity="center"
+    android:orientation="horizontal"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="PLAY"
+            android:textSize="90dp"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            />
+        <info.hoang8f.widget.FButton
+            android:text="JUMP"
+            android:id="@+id/jumpBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:layout_weight="1"
+            fbutton:buttonColor="@color/fbutton_color_darkblue"
+            fbutton:shadowColor="@color/fbutton_color_lightblue"
+            android:textColor="@color/primary_material_light"
+            fbutton:cornerRadius="50dp"
+            fbutton:shadowEnabled="true"
+            fbutton:shadowHeight="20dp"
+            android:textSize="50dp"
+            />
+        </LinearLayout>
 
-    <info.hoang8f.widget.FButton
-        android:text="jump"
-        android:id="@+id/jumpBtn"
-        android:layout_width="350dp"
-        android:layout_height="500dp"
-        android:layout_margin="3dp"
-        android:layout_weight="1"
-        fbutton:buttonColor="@color/fbutton_color_concrete"
-        fbutton:shadowColor="@color/fbutton_color_asbestos"
-        fbutton:cornerRadius="200dp"
-        fbutton:shadowEnabled="true"
-        fbutton:shadowHeight="20dp"
-        android:textSize="50dp"
-        />
+
 </RelativeLayout>

@@ -237,7 +237,7 @@ public class QAActivity extends GameActivity {
                 public void onClick(View v) {
                     gcs.sendGameEvent("readyQuestion", new String[]{});
                     setVisibleView();
-                    readyQuestion.setVisibility(View.INVISIBLE);
+                    readyQuestion.setVisibility(View.VISIBLE);
                 }
             });
 
@@ -263,10 +263,10 @@ public class QAActivity extends GameActivity {
         public void init(View v){
             tv = (TextView)v.findViewById(R.id.questionText);
             tv.setTypeface(qaActivity.getTypeFace());
-            tv.setVisibility(View.INVISIBLE);
+            tv.setVisibility(View.VISIBLE);
 
             questionIcon = (TextView)getView().findViewById(R.id.questionIcon);
-            questionIcon.setVisibility(View.INVISIBLE);
+            questionIcon.setVisibility(View.VISIBLE);
         }
         public void setTextView(TextView t, String[] params){
             tv.setText(params[0]);

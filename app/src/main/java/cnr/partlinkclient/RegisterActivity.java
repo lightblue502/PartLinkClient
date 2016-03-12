@@ -1,5 +1,6 @@
 package cnr.partlinkclient;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -12,7 +13,9 @@ import android.media.Image;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,8 +50,25 @@ public class RegisterActivity extends GameActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (gcs.isConnectedToServer())
-                    register();
+                sendEvent();
+            }
+        });
+
+        nameEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if(event.getAction() == KeyEvent.ACTION_DOWN){
+                    switch (keyCode)
+                    {
+                        case KeyEvent.KEYCODE_DPAD_CENTER:
+                        case KeyEvent.KEYCODE_ENTER:
+                            sendEvent();
+                            return true;
+                        default:
+                            break;
+                    }
+                }
+                return false;
             }
         });
 
@@ -56,6 +76,22 @@ public class RegisterActivity extends GameActivity {
         mImageView.setVisibility(View.INVISIBLE);
         registerBtn.setVisibility(View.INVISIBLE);
 
+    }
+
+    public void sendEvent(){
+        if (gcs.isConnectedToServer()){
+            register();
+            registerBtn.setEnabled(false);
+            mImageView.setEnabled(false);
+            nameEditText.setEnabled(false);
+
+            //Check if no view has focus:
+            View view = this.getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
     }
 
     private void dispatchTakePictureIntent() {

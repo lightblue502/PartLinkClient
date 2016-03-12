@@ -107,8 +107,7 @@ public abstract class GameActivity extends Activity {
             Intent intent = new Intent(this, ResultActivity.class);
             intent.putExtra("result", "Ready");
             startActivity(intent);
-        }
-        else if(event.equals("end_start")) {
+        } else if(event.equals("end_start")) {
             isBackPress = false;
             isEndActivity = true;
             Intent intent = new Intent(this, EndActivity.class);

@@ -137,6 +137,10 @@ public abstract class GameActivity extends Activity {
             fragment = null;
             onSuicidePauseFragment();
             ready();
+        }else if(event.equals("game_resume_ball")){
+            isBackPress = false;
+            fragment = null;
+            onSuicidePauseFragment();
         }
     }
     public abstract void ready();

@@ -50,8 +50,8 @@
         android:layout_alignParentStart="true"
         android:id="@+id/linearLayout3">
         <info.hoang8f.widget.FButton
-            android:text="CONFIRM"
-            android:id="@+id/nextGame"
+            android:text="END GAME"
+            android:id="@+id/endGame"
             android:layout_width="wrap_content"
             android:textColor="@color/primary_material_light"
             android:layout_height="100dp"

@@ -15,10 +15,12 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -54,23 +56,37 @@ public class RegisterActivity extends GameActivity {
             }
         });
 
-        nameEditText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(event.getAction() == KeyEvent.ACTION_DOWN){
-                    switch (keyCode)
-                    {
-                        case KeyEvent.KEYCODE_DPAD_CENTER:
-                        case KeyEvent.KEYCODE_ENTER:
-                            sendEvent();
-                            return true;
-                        default:
-                            break;
-                    }
+//        nameEditText.setOnEdit
+        nameEditText.setImeOptions(EditorInfo.IME_ACTION_GO);
+        nameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO
+                        || actionId == EditorInfo.IME_ACTION_SEND
+                        || actionId == EditorInfo.IME_ACTION_NEXT
+                        || actionId ==EditorInfo.IME_ACTION_DONE) {
+                    sendEvent();
+                    // Do whatever you need
                 }
-                return false;
+                return true;
             }
         });
+//        nameEditText.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if(event.getAction() == KeyEvent.ACTION_DOWN){
+//                    switch (keyCode)
+//                    {
+//                        case KeyEvent.KEYCODE_DPAD_CENTER:
+//                        case KeyEvent.KEYCODE_ENTER:
+//                            sendEvent();
+//                            return true;
+//                        default:
+//                            break;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
 
         nameEditText.setVisibility(View.INVISIBLE);
         mImageView.setVisibility(View.INVISIBLE);
